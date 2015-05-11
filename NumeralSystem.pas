@@ -74,11 +74,42 @@ begin
         end;  
     end;
     i:=i+1;
+  end;  
+  isFraction:=pointFound; 
+end;
+
+function indexPoint(s:string):integer;
+var i,n:integer;
+    pointFound:boolean;
+	  res:integer;
+begin
+  pointFound:=false;
+  n:=length(s);
+  if (not isDigit(s[1])) then begin
+    writeln('error. The first char is not digit');
+    exit;
   end;
-  
-  isFraction:=pointFound;
- 
-end;    
+  if (not isDigit(s[n])) then begin
+    writeln('error. The last char is not digit');
+    exit;
+  end;  
+  i:=2;
+  while (not pointFound)and(i<=n-1) do begin
+    if (not isDigit(s[i])) then begin
+      if (s[i] = '.') or (s[i] = ',') 
+        then begin
+			    pointFound:=true;
+			    res:=i;
+		    end
+        else begin
+          writeln('error');
+          exit;
+        end;  
+    end;
+    i:=i+1;
+  end;
+  indexPoint:=res;
+end;
 
 var i:integer;
     s:string;
@@ -88,4 +119,5 @@ var i:integer;
 begin
   readln(s);
   writeln(isFraction(s));
+  writeln(indexPoint(s));
 end.    
